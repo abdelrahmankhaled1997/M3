@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/appIconIV"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/aNametxt"
+        android:text="Android Name"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/appIconIV"
+        android:layout_toEndOf="@+id/appIconIV"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/aVersiontxt"
+        android:text="Android Version"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aNametxt"
+        android:layout_alignLeft="@+id/aNametxt"
+        android:layout_alignStart="@+id/aNametxt" />
+
+    <RatingBar
+        android:id="@+id/ratingbar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="23sp"
+        android:layout_alignLeft="@+id/aVersiontxt"
+        android:layout_alignStart="@+id/aVersiontxt"
+        android:paddingTop="3sp"
+        android:layout_below="@+id/aVersiontxt"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1" />
+
+
+    <ImageView android:id="@+id/phoneIcon"
+
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:showAsAction="always"
+        android:layout_alignLeft="@+id/ratingbar"
+        android:layout_alignStart="@+id/ratingbar"
+        android:layout_below="@+id/ratingbar"
+        android:paddingTop="2sp"  />
+
+    <TextView
+        android:id="@+id/phoneNo"
+        android:text="Android Version"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:paddingLeft="23sp"
+        android:paddingTop="1sp"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingbar"
+        android:layout_alignLeft="@+id/phoneIcon"
+        android:layout_alignStart="@+id/ratingbar" />
+
+    <ImageView android:id="@+id/carIcon"
+
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:showAsAction="always"
+        android:layout_alignLeft="@+id/phoneIcon"
+        android:layout_alignStart="@+id/phoneIcon"
+        android:layout_below="@+id/phoneIcon"
+        android:paddingTop="2sp"  />
+
+
+    <TextView
+        android:id="@+id/distance"
+        android:text="Android Version"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:paddingLeft="23sp"
+        android:paddingTop="1sp"
+        android:layout_width="140sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phoneNo"
+        android:layout_alignLeft="@+id/carIcon"
+        android:layout_alignStart="@+id/phoneIcon" />
+
+
+
+
+
+
+
+</RelativeLayout>
