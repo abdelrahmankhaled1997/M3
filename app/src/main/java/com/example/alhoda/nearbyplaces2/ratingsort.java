@@ -1,6 +1,8 @@
 package com.example.alhoda.nearbyplaces2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -67,9 +69,31 @@ public class ratingsort extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent i2 = new Intent(ratingsort.this, MapsActivity.class);
-                i2.putExtra("newlat",Double.parseDouble(latitudes.get(i)));
-                i2.putExtra("newlng",Double.parseDouble(longitudes.get(i)));
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ratingsort.this);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("latitude", String.valueOf(latitudes.get(i)));
+                editor.commit();
+
+
+                SharedPreferences prefs2 = PreferenceManager.getDefaultSharedPreferences(ratingsort.this);
+                SharedPreferences.Editor editor2 = prefs2.edit();
+                editor2.putString("longitude",( longitudes.get(i)));
+
+                editor2.commit();
+
+                SharedPreferences prefs3 = PreferenceManager.getDefaultSharedPreferences(ratingsort.this);
+                SharedPreferences.Editor editor3 = prefs3.edit();
+                editor3.putString("phone",( phones.get(i)));
+                editor3.commit();
+
+
+
+                Intent i2 = new Intent(ratingsort.this, places.class);
+                i2.putExtra("landmarkimage",(images.get(i)));
+                i2.putExtra("landmarkname",names.get(i));
+                i2.putExtra("distance",String.valueOf(distances.get(i)));
+                i2.putExtra("landmarkrating",(String.valueOf(ratings.get(i))));
                 startActivity(i2);
 
                 //Toast.makeText(MainActivity.this, names.get(i)+"\n"+ratings.get(i), Toast.LENGTH_LONG).show();

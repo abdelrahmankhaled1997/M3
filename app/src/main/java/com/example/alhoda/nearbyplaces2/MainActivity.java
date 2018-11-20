@@ -1,5 +1,7 @@
 package com.example.alhoda.nearbyplaces2;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     String currLng ;
     ListAdapter lAdapter;
     Button sort;
-    private static String URL_LOGIN = "http://192.168.1.5:8000/sortbyrating.php";
+    private static String URL_LOGIN = "http://192.168.1.2:8000/sortbyrating.php" ;
 
 
     @Override
@@ -48,10 +50,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         lView = (ListView) findViewById(R.id.androidList);
         sort = (Button) findViewById(R.id.ratingsort);
         Intent intent = getIntent();
-
+         System.out.print("hi");
         names = new ArrayList<String>();
         images = new ArrayList<String>();
         ratings = new ArrayList<String>();
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        images = intent.getStringArrayListExtra("urls");
+       images = intent.getStringArrayListExtra("urls");
         names = intent.getStringArrayListExtra("names");
         ratings = intent.getStringArrayListExtra("ratings");
         phones = intent.getStringArrayListExtra("phones");
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         //  version  = new String[]{"Android Alpha", "Android Beta", "Android Cupcake", "Android Donut", "Android Eclair", "Android Froyo", "Android Gingerbread", "Android Honeycomb", "Android Ice Cream Sandwich", "Android JellyBean", "Android Kitkat", "Android Lollipop", "Android Marshmallow", "Android Nougat"};
 
-      //   versionNumber = new String[]{"1.0", "1.1", "1.5", "1.6", "2.0", "2.2", "2.3", "3.0", "4.0", "4.1", "4.4", "5.0", "6.0", "7.0"};
+        //   versionNumber = new String[]{"1.0", "1.1", "1.5", "1.6", "2.0", "2.2", "2.3", "3.0", "4.0", "4.1", "4.4", "5.0", "6.0", "7.0"};
 
 
         lAdapter = new ListAdapter(MainActivity.this, names, ratings, images,phones,distances);
@@ -104,9 +107,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent i2 = new Intent(MainActivity.this, MapsActivity.class);
-                i2.putExtra("newlat",Double.parseDouble(latitudes.get(i)));
-                i2.putExtra("newlng",Double.parseDouble(longitudes.get(i)));
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("latitude", String.valueOf(latitudes.get(i)));
+                editor.commit();
+
+
+                SharedPreferences prefs2 = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor2 = prefs2.edit();
+                editor2.putString("longitude",( longitudes.get(i)));
+
+                editor2.commit();
+
+                SharedPreferences prefs3 = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor3 = prefs3.edit();
+                editor3.putString("phone",( phones.get(i)));
+                editor3.commit();
+
+
+
+                Intent i2 = new Intent(MainActivity.this, places.class);
+                i2.putExtra("landmarkimage",(images.get(i)));
+                i2.putExtra("landmarkname",names.get(i));
+                i2.putExtra("distance",String.valueOf(distances.get(i)));
+                i2.putExtra("landmarkrating",(String.valueOf(ratings.get(i))));
                 startActivity(i2);
 
                 //Toast.makeText(MainActivity.this, names.get(i)+"\n"+ratings.get(i), Toast.LENGTH_LONG).show();

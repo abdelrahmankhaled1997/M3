@@ -1,6 +1,8 @@
 package com.example.alhoda.nearbyplaces2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email, password,phone,age,nation;
     private EditText name_ ;
     private Button reg_btn;
-    private static String URL_LOGIN = "http://192.168.1.5:8000/register.php";
+    private static String URL_LOGIN = "http://192.168.1.3:8000/register.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,11 @@ public class RegisterActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
 
                     public void onResponse(String response) {
+
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RegisterActivity.this);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("username", email); //InputString: from the EditText
+                        editor.commit();
 
                         Toast.makeText(RegisterActivity.this, "Your account has been created", Toast.LENGTH_LONG).show();
                         Intent myIntent = new Intent(RegisterActivity.this, HomeActivity.class);

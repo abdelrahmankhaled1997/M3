@@ -106,7 +106,7 @@ public class ListAdapter extends BaseAdapter {
         int i;
 
         for (i=0; i<urls.size();i++ ){
-            byte[] decodedString = Base64.decode(urls.get(i), Base64.DEFAULT); 
+            byte[] decodedString = Base64.decode(urls.get(i), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             icons.add(decodedByte);
         }
@@ -122,7 +122,7 @@ public class ListAdapter extends BaseAdapter {
         TextView distance;
         ImageView icon;
         RatingBar ratingBar;
-       ImageView phoneicon;
+        ImageView phoneicon;
         ImageView caricon;
 
     }

@@ -68,7 +68,7 @@
         android:maxLines="1"
         android:paddingLeft="23sp"
         android:paddingTop="1sp"
-        android:layout_width="100sp"
+        android:layout_width="140sp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ratingbar"
         android:layout_alignLeft="@+id/phoneIcon"

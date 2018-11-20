@@ -58,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double yes;
     double newlongitude;
     private int PROXIMITY_RADIUS = 10000;
-    private static String URL_LOGIN = "http://192.168.1.5:8000/retrieve.php";
+    private static String URL_LOGIN = "http://192.168.1.2:8000/retrieve.php";
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
@@ -296,7 +296,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         try {
 
-                            int i = 0;
+                            int i ;
                             Log.d("Mytrace",response);
                             ArrayList<String> urls = new ArrayList<String>();
                             ArrayList<String> names = new ArrayList<String>();
@@ -310,7 +310,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             for (i = 0; i < jsonArray.length(); i++) {
 
                                 JSONObject s = jsonArray.getJSONObject(i);
-                                String url = s.getString("image").trim();
+                                String url = s.getString("image");
                                 String name = s.getString("name").trim();
                                 double rating = s.getDouble("rating");
                                 String phone = s.getString("phone");
@@ -325,23 +325,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 latitudes.add(String.valueOf(latitude));
                                 longitudes.add(String.valueOf(longitude));
 
+                                Log.d("testtest",url);
+
                             }
 
-                            Intent i2 = new Intent(MapsActivity.this, MainActivity.class);
-                            i2.putExtra("names", names);
-                            i2.putExtra("urls", urls);
-                            i2.putExtra("ratings", ratings);
-                            i2.putExtra("distances", distances);
-                            i2.putExtra("phones", phones);
-                            i2.putExtra("newlongs", longitudes);
-                            i2.putExtra("newlats", latitudes);
-                            i2.putExtra("currlat", String.valueOf(latitude));
-                            i2.putExtra("currlng", String.valueOf(longitude));
-                            startActivity(i2);
+
+                          Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+
+                            intent.putExtra("names", names);
+
+                           intent.putExtra("urls", urls);
+
+                            intent.putExtra("ratings", ratings);
+
+                            intent.putExtra("distances", distances);
+
+                            intent.putExtra("phones", phones);
+
+                            intent.putExtra("newlongs", longitudes);
+
+                            intent.putExtra("newlats", latitudes);
+
+                            intent.putExtra("currlat", String.valueOf(latitude));
+
+                            intent.putExtra("currlng", String.valueOf(longitude));
+
+                            startActivity(intent);
+
+                            System.out.println("intent:"+ intent);
+                            System.out.println("open intent"+intent.getExtras());
 
 
                         } catch (JSONException e) {
-                            Toast.makeText(MapsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -369,7 +386,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Log.d("Myrequest",  stringRequest.toString());
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                1000000,
+                60000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(this);

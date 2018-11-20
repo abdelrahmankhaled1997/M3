@@ -2,6 +2,8 @@ package com.example.alhoda.nearbyplaces2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
     private Button btn_login;
     private Button register;
-    private static String URL_LOGIN = "http://192.168.1.5:8000/login1.php";
+    private static String URL_LOGIN = "http://192.168.1.2:8000/login1.php" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         register = findViewById(R.id.register);
 
+
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Log.d("onlogin1","beforestartact");
                 startActivity(myIntent);
+                Log.d("onlogin","loginsuccess");
 
             }
         });
@@ -87,6 +93,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (success) {
 
                                 Toast.makeText(LoginActivity.this, "succesful login", Toast.LENGTH_LONG).show();
+                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("username", email); //InputString: from the EditText
+                                editor.commit();
                                 Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
                                 myIntent.putExtra("useremail", email);
                                 startActivity(myIntent);
